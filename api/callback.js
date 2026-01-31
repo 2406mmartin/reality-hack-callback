@@ -9,9 +9,9 @@ export default async function handler(req, res) {
     return res.status(400).send("Missing authorization code");
   }
 
-  const clientId = "f0cd086c71734ab287d5bac2266b52cc";
-  const clientSecret = "3b25e195e4254814bd5d9a56d224eb11";
-  const redirectUri = "https://reality-hack-callback.vercel.app/api/callback";
+  const clientId = process.env.SPOTIFY_CLIENT_ID;
+  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+  const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
 
   try {
     // Exchange code for tokens
@@ -42,9 +42,8 @@ export default async function handler(req, res) {
     const session = state || "default";
 
     // Store in Upstash Redis
-    const redisUrl = "https://precise-parrot-31832.upstash.io";
-    const redisToken =
-      "AXxYAAIncDI0NDFlNTQ1YjM0MWI0YmQwOWU0MzBhM2IxZDQ1ZTlmMnAyMzE4MzI";
+    const redisUrl = process.env.UPSTASH_REDIS_URL;
+    const redisToken = process.env.UPSTASH_REDIS_TOKEN;
 
     await fetch(
       `${redisUrl}/set/spotify_session_${session}/${encodeURIComponent(

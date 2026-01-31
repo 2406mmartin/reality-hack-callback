@@ -8,9 +8,8 @@ export default async function handler(req, res) {
 
   const session = req.query.session || "default";
 
-  const redisUrl = "https://precise-parrot-31832.upstash.io";
-  const redisToken =
-    "AXxYAAIncDI0NDFlNTQ1YjM0MWI0YmQwOWU0MzBhM2IxZDQ1ZTlmMnAyMzE4MzI";
+  const redisUrl = process.env.UPSTASH_REDIS_URL;
+  const redisToken = process.env.UPSTASH_REDIS_TOKEN;
 
   try {
     const response = await fetch(`${redisUrl}/get/spotify_session_${session}`, {
